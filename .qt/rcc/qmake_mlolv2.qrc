@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/mlolv2">
+    <file alias="qmldir">/home/d1414/Documents/Code/qt/mlolv2/mlolv2/qmldir</file>
+  </qresource>
+</RCC>
+

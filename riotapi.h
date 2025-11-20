@@ -3,16 +3,18 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QtQml/qqml.h> // WICHTIG für QML_ELEMENT
 
-class RiotApi : public QObject {
+class RiotApi : public QObject
+{
     Q_OBJECT
+    QML_ELEMENT
+
 public:
     explicit RiotApi(QObject *parent = nullptr);
+    Q_INVOKABLE void search_summoner(const QString &sname, const QString &tag, const QString &apikey);
 
-    Q_INVOKABLE void search_summoner(
-        const QString &sname,
-        const QString &tag,
-        const QString &apikey);
 signals:
     void error_occurred(QString message);
     void found_puuid(QString puuid);
@@ -20,9 +22,7 @@ signals:
 
 private:
     QNetworkAccessManager *m_manager;
-    void fetch_puuid(const QString &sname,
-                     const QString &tag,
-                     const QString &apikey);
+    void fetch_puuid(const QString &sname, const QString &tag, const QString &apikey);
     void fetch_mastery(const QString &puuid, const QString &apikey);
 };
 

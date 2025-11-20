@@ -1,0 +1,14 @@
+-rootPath
+/home/d1414/Documents/Code/qt/mlolv2
+-cmake-output
+-output-file
+/home/d1414/Documents/Code/qt/mlolv2/.qt/qml_imports/appmlolv2_build.cmake
+-importPath
+/home/d1414/Documents/Code/qt/mlolv2/mlolv2
+-importPath
+/home/d1414/Documents/Code/qt/mlolv2
+-importPath
+/usr/lib/qt6/qml
+-qrcFiles
+/home/d1414/Documents/Code/qt/mlolv2/.qt/rcc/qmake_mlolv2.qrc
+/home/d1414/Documents/Code/qt/mlolv2/.qt/rcc/appmlolv2_raw_qml_0.qrc
