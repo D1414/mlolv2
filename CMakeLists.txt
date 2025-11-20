@@ -16,6 +16,7 @@ qt_add_qml_module(appmlolv2
     VERSION 1.0
     QML_FILES main.qml
     SOURCES riotapi.h
+    SOURCES riotapi.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
