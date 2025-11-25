@@ -7,17 +7,18 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    const QUrl url(QStringLiteral("qrc:/Mastery/Main.qml"));
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,
         &app,
-        [](QObject *obj, const QUrl &objUrl) {
+        [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && objUrl.toString().endsWith("Main.qml"))
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
 
-    engine.loadFromModule("Mastery", "Main");
+    engine.load(url);
 
     return app.exec();
 }

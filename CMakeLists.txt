@@ -5,7 +5,6 @@ project(mlolv2 VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# KORREKTUR 1: "Network" hinzugefügt, sonst gehen API Calls nicht!
 find_package(Qt6 6.2 COMPONENTS Quick Network REQUIRED)
 
 qt_add_executable(appmlolv2
@@ -13,7 +12,6 @@ qt_add_executable(appmlolv2
 )
 
 qt_add_qml_module(appmlolv2
-    # KORREKTUR 2: Der Name muss "Mastery" sein, damit dein QML Import funktioniert
     URI "Mastery"
     VERSION 1.0
     QML_FILES
@@ -24,7 +22,6 @@ qt_add_qml_module(appmlolv2
         riotapi.cpp
 )
 
-# Einstellungen für macOS/iOS (Standard)
 set_target_properties(appmlolv2 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appmlolv2
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -33,7 +30,6 @@ set_target_properties(appmlolv2 PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-# KORREKTUR 3: Auch hier "Qt6::Network" verlinken
 target_link_libraries(appmlolv2
     PRIVATE Qt6::Quick Qt6::Network)
 
