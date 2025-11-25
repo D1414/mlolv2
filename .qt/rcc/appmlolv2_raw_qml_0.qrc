@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="/mlolv2/">
-    <file alias="main.qml">/home/d1414/Documents/Code/qt/mlolv2/main.qml</file>
-    <file alias="MyTextField.qml">/home/d1414/Documents/Code/qt/mlolv2/MyTextField.qml</file>
-  </qresource>
-</RCC>
-
