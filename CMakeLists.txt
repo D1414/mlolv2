@@ -16,7 +16,7 @@ qt_add_qml_module(appmlolv2
     VERSION 1.0
     QML_FILES
         "Main.qml"
-        "MyTextField.qml"
+
     SOURCES
         riotapi.h
         riotapi.cpp

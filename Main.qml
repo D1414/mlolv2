@@ -21,9 +21,25 @@ Window {
         spacing: 15
         width: 300
 
-        MyTextField { id: nameField; width: parent.width; placeholderText: "Game Name" }
+ /* 	MyTextField { id: nameField; width: parent.width; placeholderText: "Game Name" }
         MyTextField { id: tagField; width: parent.width; placeholderText: "Tag (z.B. EUW)" }
         MyTextField { id: apiKeyField; width: parent.width; placeholderText: "API Key"; echoMode: TextInput.Password }
+*/
+        TextField {
+            id: nameField;
+            placeholderText: "name";
+            width: parent.width;
+        }
+        TextField {
+            id: tagField;
+            placeholderText: "tag";
+            width: parent.width;
+        }
+        TextField {
+            id: apiKeyField;
+            placeholderText: "API key";
+            width: parent.width;
+        }
 
         Button {
             text: "Suchen"

@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-
+/*
 TextField {
     id: control
     selectByMouse: true
@@ -33,4 +33,5 @@ TextField {
             }
         }
     }
-}
+} */
+Button{}
