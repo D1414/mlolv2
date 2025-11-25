@@ -15,7 +15,7 @@ qt_add_qml_module(appmlolv2
     URI "Mastery"
     VERSION 1.0
     QML_FILES
-        "Main.qml"
+    "main.qml"
 
     SOURCES
         riotapi.h
