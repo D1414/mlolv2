@@ -25,16 +25,19 @@ Window {
             id: nameField;
             placeholderText: "name";
             width: parent.width;
+            text: "Odnamra";
         }
         TextField {
             id: tagField;
             placeholderText: "tag";
             width: parent.width;
+            text: "euw";
         }
         TextField {
             id: apiKeyField;
             placeholderText: "API key";
             width: parent.width;
+            text: "RGAPI-61ae7e68-6671-4b5e-8ad5-d2efbb615079";
         }
 
         Button {

@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QtQml/qqml.h> // WICHTIG für QML_ELEMENT
+#include <QtQml/qqml.h>
+
+typedef std::map<int,std::pair<QString,QString>> Champions;
 
 class RiotApi : public QObject
 {
@@ -22,8 +24,10 @@ signals:
 
 private:
     QNetworkAccessManager *m_manager;
+    Champions champions;
     void fetch_puuid(const QString &sname, const QString &tag, const QString &apikey);
     void fetch_mastery(const QString &puuid, const QString &apikey);
+    Champions fetch_champion_data();
 };
 
 #endif // RIOTAPI_H
