@@ -27,7 +27,7 @@ private:
     Champions champions;
     void fetch_puuid(const QString &sname, const QString &tag, const QString &apikey);
     void fetch_mastery(const QString &puuid, const QString &apikey);
-    Champions fetch_champion_data();
+    void fetch_champion_data();
 };
 
 #endif // RIOTAPI_H

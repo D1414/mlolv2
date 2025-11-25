@@ -49,7 +49,7 @@ void RiotApi::fetch_puuid(const QString &sname, const QString &tag, const QStrin
     });
 }
 
-Champions RiotApi::fetch_champion_data(){
+void RiotApi::fetch_champion_data(){
     QString urlStr = QString("https://ddragon.leagueoflegends.com/cdn/15.23.1/data/en_US/champion.json");
     QUrl url(urlStr);
     QUrlQuery query;
@@ -77,15 +77,13 @@ Champions RiotApi::fetch_champion_data(){
         qDebug() << champions;
         reply->deleteLater();
     });
-
-    return champions;
 }
 
 void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
+    fetch_champion_data();
     QString urlStr = QString("https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/%1")
     .arg(puuid);
     QUrl url(urlStr);
-    Champions champions = fetch_champion_data();
     QUrlQuery query;
     query.addQueryItem("api_key", apiKey);
     url.setQuery(query);
