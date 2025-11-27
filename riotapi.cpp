@@ -6,9 +6,14 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 RiotApi::RiotApi(QObject *parent) : QObject{parent} {
     m_manager = new QNetworkAccessManager(this);
+    fetch_champion_data();
+}
+QVariantList RiotApi::championsMap() const {
+    return m_championsMap;
 }
 
 void RiotApi::search_summoner(const QString &sname, const QString &tag, const QString &apikey) {
@@ -56,7 +61,6 @@ void RiotApi::fetch_champion_data(){
     url.setQuery(query);
     QNetworkRequest request(url);
     QNetworkReply *reply = m_manager->get(request);
-
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         if (reply->error() != QNetworkReply::NoError) {
             emit error_occurred("Champion data Error: " + reply->errorString());
@@ -72,15 +76,15 @@ void RiotApi::fetch_champion_data(){
             int key = champ["key"].toString().toInt();
             QString image = champ["image"].toObject()["full"].toString();
             QString name = champ["name"].toString();
-            champions[key] = {image,name};
+            champions[key] = {name,image};
         }
-        qDebug() << champions;
         reply->deleteLater();
     });
 }
 
+
 void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
-    fetch_champion_data();
+    m_championsMap.clear();
     QString urlStr = QString("https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/%1")
     .arg(puuid);
     QUrl url(urlStr);
@@ -97,7 +101,21 @@ void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
             reply->deleteLater();
             return;
         }
-        emit received_mastery(QString::fromUtf8(reply->readAll()));
+
+
+        QByteArray data = reply->readAll();
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray masteries = doc.array();
+
+        QVariantMap entry;
+
+        for(QJsonValueRef champ: masteries){
+            QVariantMap entry;
+            entry["name"] = champions[champ.toObject()["championId"].toInt()].first;
+            entry["icon"] = champions[champ.toObject()["championId"].toInt()].second;
+            m_championsMap.append(entry);
+        }
+        emit championsMapChanged();
         reply->deleteLater();
     });
 }
