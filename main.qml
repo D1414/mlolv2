@@ -24,9 +24,14 @@ Window {
     }
 
     Column {
-        anchors.centerIn: parent
-        spacing: 15
+        id: searchColumn
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.topMargin: 20
+        spacing: 10
         width: 300
+        z: 10
 
         TextField {
             id: nameField;
@@ -61,6 +66,40 @@ Window {
             color: "white"
             horizontalAlignment: Text.AlignHCenter
             width: parent.width
+        }
+    }
+    GridView {
+        id: championGrid
+        anchors.top: searchColumn.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 20
+        clip: true
+
+        cellWidth: 120
+        cellHeight: 140
+
+        model: riotApi.championsMap
+
+        delegate: Column {
+            width: championGrid.cellWidth
+            spacing: 5
+
+            Image{
+                width: 80
+                height: 80
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                source: modelData.icon ? "https://ddragon.leagueoflegends.com/cdn/15.23.1/img/champion/" + modelData.icon : ""
+
+            }
+            Text{
+                text: modelData.name
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.bold: true
+            }
         }
     }
 }
