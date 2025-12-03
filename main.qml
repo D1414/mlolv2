@@ -14,9 +14,9 @@ Window {
         onError_occurred: (msg) => console.log(msg)
         onFound_puuid: (puuid) => console.log("PUUID: " + puuid)
         onReceived_mastery: (json) => statusText.text = "Daten empfangen!"
-        onChampionsMapChanged: {
+        onChampionsChanged: {
             console.log("Mastery Daten erhalten!")
-            for(const champ of championsMap){
+            for(const champ of champions){
                console.log(champ.name);
                console.log(champ.icon);
             }
@@ -80,7 +80,7 @@ Window {
         cellWidth: 160
         cellHeight: 160
 
-        model: riotApi.championsMap
+        model: riotApi.champions
 
         delegate: Column {
             width: championGrid.cellWidth
