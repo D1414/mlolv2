@@ -77,8 +77,8 @@ Window {
         anchors.margins: 20
         clip: true
 
-        cellWidth: 120
-        cellHeight: 140
+        cellWidth: 160
+        cellHeight: 160
 
         model: riotApi.championsMap
 
@@ -87,8 +87,8 @@ Window {
             spacing: 5
 
             Image{
-                width: 80
-                height: 80
+                width: 120
+                height: 120
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 source: modelData.icon ? "https://ddragon.leagueoflegends.com/cdn/15.23.1/img/champion/" + modelData.icon : ""
