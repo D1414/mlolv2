@@ -105,7 +105,6 @@ void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
             return;
         }
 
-
         QByteArray data = reply->readAll();
         QJsonDocument doc = QJsonDocument::fromJson(data);
         QJsonArray masteries = doc.array();

@@ -15,10 +15,12 @@ Window {
         onFound_puuid: (puuid) => console.log("PUUID: " + puuid)
         onReceived_mastery: (json) => statusText.text = "Daten empfangen!"
         onChampionsChanged: {
-            console.log("Mastery Daten erhalten!")
             for(const champ of champions){
                console.log(champ.name);
-               console.log(champ.icon);
+               console.log("	id: " + champ.id);
+               console.log("	icon: " + champ.icon);
+               console.log("	level: " + champ.level);
+               console.log("	points: " + champ.points);
             }
         }
     }
