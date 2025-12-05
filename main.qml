@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Effects
 import Mastery 1.0
 
 Window {
@@ -88,13 +89,23 @@ Window {
             width: championGrid.cellWidth
             spacing: 5
 
-            Image{
+            Item {
                 width: 120
                 height: 120
                 anchors.horizontalCenter: parent.horizontalCenter
+                Image {
+                    id: champSrc
+                    anchors.fill: parent
+                    source: modelData.icon ? "https://ddragon.leagueoflegends.com/cdn/15.23.1/img/champion/" + modelData.icon : ""
+                    visible: false
+                }
 
-                source: modelData.icon ? "https://ddragon.leagueoflegends.com/cdn/15.23.1/img/champion/" + modelData.icon : ""
-
+                MultiEffect {
+                    anchors.fill: parent
+                    source: champSrc
+                    saturation: modelData.level < 5 ? -1.0 : 0.0
+                    opacity: modelData.level < 5 ? 0.6 : 1.0
+                }
             }
             Text{
                 text: modelData.name
