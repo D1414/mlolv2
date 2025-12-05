@@ -20,6 +20,7 @@ qt_add_qml_module(appmlolv2
     SOURCES
         riotapi.h
         riotapi.cpp
+        SOURCES champion.h champion.cpp
 )
 
 set_target_properties(appmlolv2 PROPERTIES

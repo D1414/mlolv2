@@ -14,11 +14,13 @@ Window {
         onError_occurred: (msg) => console.log(msg)
         onFound_puuid: (puuid) => console.log("PUUID: " + puuid)
         onReceived_mastery: (json) => statusText.text = "Daten empfangen!"
-        onChampionsMapChanged: {
-            console.log("Mastery Daten erhalten!")
-            for(const champ of championsMap){
+        onChampionsChanged: {
+            for(const champ of champions){
                console.log(champ.name);
-               console.log(champ.icon);
+               console.log("	id: " + champ.id);
+               console.log("	icon: " + champ.icon);
+               console.log("	level: " + champ.level);
+               console.log("	points: " + champ.points);
             }
         }
     }
@@ -49,7 +51,7 @@ Window {
             id: apiKeyField;
             placeholderText: "API key";
             width: parent.width;
-            text: "RGAPI-5a7d506b-5e9d-4fe9-99f4-a9fb6cbc8d42";
+            text: "RGAPI-e10af07e-9660-4a8d-95d9-2a1cbc85a542";
         }
 
         Button {
@@ -80,7 +82,7 @@ Window {
         cellWidth: 160
         cellHeight: 160
 
-        model: riotApi.championsMap
+        model: riotApi.champions
 
         delegate: Column {
             width: championGrid.cellWidth

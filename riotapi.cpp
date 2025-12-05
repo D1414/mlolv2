@@ -1,4 +1,5 @@
 #include "riotapi.h"
+#include "champion.h"
 #include <QDebug>
 #include <QUrl>
 #include <QUrlQuery>
@@ -12,8 +13,8 @@ RiotApi::RiotApi(QObject *parent) : QObject{parent} {
     m_manager = new QNetworkAccessManager(this);
     fetch_champion_data();
 }
-QVariantList RiotApi::championsMap() const {
-    return m_championsMap;
+QList<QObject*> RiotApi::champions() const {
+    return m_champions;
 }
 
 void RiotApi::search_summoner(const QString &sname, const QString &tag, const QString &apikey) {
@@ -43,6 +44,7 @@ void RiotApi::fetch_puuid(const QString &sname, const QString &tag, const QStrin
         QJsonDocument doc = QJsonDocument::fromJson(data);
         QJsonObject obj = doc.object();
         QString puuid = obj["puuid"].toString();
+        qDebug() << puuid;
 
         if (puuid.isEmpty()) {
             emit error_occurred("Keine PUUID gefunden!");
@@ -76,7 +78,7 @@ void RiotApi::fetch_champion_data(){
             int key = champ["key"].toString().toInt();
             QString image = champ["image"].toObject()["full"].toString();
             QString name = champ["name"].toString();
-            champions[key] = {name,image};
+            championsMap[key] = {name,image};
         }
         reply->deleteLater();
     });
@@ -84,7 +86,8 @@ void RiotApi::fetch_champion_data(){
 
 
 void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
-    m_championsMap.clear();
+    qDeleteAll(m_champions);
+    m_champions.clear();
     QString urlStr = QString("https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/%1")
     .arg(puuid);
     QUrl url(urlStr);
@@ -102,20 +105,31 @@ void RiotApi::fetch_mastery(const QString &puuid, const QString &apiKey) {
             return;
         }
 
-
         QByteArray data = reply->readAll();
         QJsonDocument doc = QJsonDocument::fromJson(data);
         QJsonArray masteries = doc.array();
 
-        QVariantMap entry;
 
-        for(QJsonValueRef champ: masteries){
-            QVariantMap entry;
-            entry["name"] = champions[champ.toObject()["championId"].toInt()].first;
-            entry["icon"] = champions[champ.toObject()["championId"].toInt()].second;
-            m_championsMap.append(entry);
+        for(const QJsonValueRef &val: masteries){
+            QJsonObject champ = val.toObject();
+
+            int id = champ["championId"].toInt();
+            QString name = championsMap[id].first;
+            QString icon = championsMap[id].second;
+            int level = champ["championLevel"].toInt();
+            int points = champ["championPoints"].toInt();
+
+            Champion *champion = new Champion(
+                id,
+                name,
+                icon,
+                level,
+                points,
+                this
+            );
+            m_champions.append(champion);
         }
-        emit championsMapChanged();
+        emit championsChanged();
         reply->deleteLater();
     });
 }
