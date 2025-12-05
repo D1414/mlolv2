@@ -93,6 +93,11 @@ Window {
                 width: 120
                 height: 120
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                HoverHandler {
+                   id: hoverHandler
+                   cursorShape: Qt.PointingHandCursor
+                }
                 Image {
                     id: champSrc
                     anchors.fill: parent
@@ -106,6 +111,15 @@ Window {
                     saturation: modelData.level < 5 ? -1.0 : 0.0
                     opacity: modelData.level < 5 ? 0.6 : 1.0
                 }
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "transparent"
+                    border.color: "white"
+                    border.width: 3
+                    visible: hoverHandler.hovered
+                }
+
             }
             Text{
                 text: modelData.name
